@@ -13,10 +13,10 @@ def connect():
  
     except Error as e:
         print(e)
+
+    finally:
+      conn.close()
  
-   # finally:
-    #    conn.close()
- #
  
 if __name__ == '__main__':
     connect()
