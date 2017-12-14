@@ -3,7 +3,12 @@ from mysql.connector import Error
 from team.team import Team
 from sport.sport import Sport
 from season.season import Season
- 
+from event.event import Event
+import datetime
+from datetime import timedelta
+import csv
+import dateutil.parser as dparser
+
 def connect():
     """ Connect to MySQL database """
     try:
@@ -23,70 +28,72 @@ def connect():
     return conn
 
 
-def insert_sport(conn, id, name):
 
-  sport = Sport(name=name,id=id)
+def insert_all_events(conn, sportName, seasonName, fileName):
 
-  add_sport = ("INSERT INTO Sport "
-               "(id, name) "
-               "VALUES (%(Id)s, %(name)s)" )
+  with open('game_schedules/%s/%s.csv' %(sportName, fileName) ,'rU') as f:
 
-  sport_data = {"Id":sport.id,"name":sport.name}
+    reader = csv.reader(f)
+    reader.next()
 
-  cursor = conn.cursor(buffered=True)
+    for row in reader:
 
-  cursor.execute(add_sport,sport_data)
+      event = Event(conn=conn, stubhubId=row[3], sportName=sportName, seasonName=seasonName,  teamId = row[0], teamCity=row[1], teamName=row[2], dateUTC=dparser.parse(row[4]), dateLocal=dparser.parse(row[5]))
 
-  conn.commit()
+      try:
+        event.insert_event(conn)
+      except:
+        print ("Error with inserting event %s - could be duplicate" %row[3])
 
-  cursor.close()
+def get_all_teams(sport):
 
-
-def insert_team( conn, stubhubId, name, city, sportName=None ):
-
-  team = Team(stubhubId = stubhubId, name = name, city=city, sportName =sportName, conn=conn)
-  
-  add_team = ("INSERT INTO Team "
-               "(stubhubId, city, name, sportid) "
-               "VALUES (%(stubhubId)s, %(city)s, %(name)s, %(sportId)s)" )
-
-  team_data = {"stubhubId":team.stubhubId,"name":team.name, "city": team.city, "sportId":team.sportId}
-
-  cursor = conn.cursor(buffered=True)
-
-  cursor.execute(add_team,team_data)
-
-  conn.commit()
-
-  cursor.close()
-
-def insert_season(conn, sportName, year_start, year_end ):
-
-  season = Season(conn = conn, sportName=sportName, year_start = year_start, year_end=year_end)
-  
-  add_season = ("INSERT INTO Season "
-               "(name, sportId, year_start, year_end) "
-               "VALUES (%(name)s, %(sportId)s, %(year_start)s, %(year_end)s )" )
-
-  season_data = {"name":season.name, "sportId":season.sportId, "year_start":season.year_start, "year_end":season.year_end}
+  conn = connect()
 
   cursor = conn.cursor(buffered=True)
   
-  cursor.execute(add_season,season_data)
+  cursor.execute("SELECT Id FROM `Sport` WHERE `name`='%s'" % (sport))
 
-  conn.commit()
+  sportId = cursor.fetchall()[0][0]
 
-  cursor.close()
+  cursor.execute("SELECT * FROM `Team` WHERE `sportId`='%s'" %(sportId))
+
+  teams = cursor.fetchall()
+
+  conn.close()
+
+  return teams
+
+def get_zero_seven_events():
+
+  conn = connect() 
+
+  cursor = conn.cursor(buffered=True)
+
+  query = ("SELECT * FROM `Event` WHERE `dateUTC` BETWEEN %s AND %s")
+  cursor.execute(query, (datetime.datetime.utcnow(),datetime.datetime.utcnow()+timedelta(days=7)))
+
+  return cursor.fetchall()
+
+
+def get_seven_fifteen_events():
+
+  conn = connect() 
+
+  cursor = conn.cursor(buffered=True)
+
+  query = ("SELECT * FROM `Event` WHERE `dateUTC` BETWEEN %s AND %s")
+  cursor.execute(query, (datetime.datetime.utcnow()+timedelta(days=7),datetime.datetime.utcnow()+timedelta(days=15)))
+
+  return cursor.fetchall()
 
 
 
- 
+
+
 if __name__ == '__main__':
 
     conn = connect()
 
-    #insert_team(stubhubId = 12, name='mo', city='ny', sportName='MLB', conn=conn )
-
-    insert_season(conn, sportName="NHL", year_start = 2017, year_end = 2018 )
+    #insert_all_events(conn=conn, sportName='NHL', seasonName="NHL_2017-18", fileName='2017-12-13_19_13')
 
     conn.close()
