@@ -11,15 +11,15 @@ class Sport():
                "(id, name) "
                "VALUES (%(Id)s, %(name)s)" )
 
-	  	sport_data = {"Id":sport.id,"name":sport.name}
+		sport_data = {"Id":sport.id,"name":sport.name}
 
-	  	cursor = conn.cursor(buffered=True)
+		cursor = conn.cursor(buffered=True)
 
-	  	cursor.execute(add_sport,sport_data)
+		cursor.execute(add_sport,sport_data)
 
-	  	print ("Adding sport %s with Id: %s" %(self.name, self.id))
+		print ("Adding sport %s with Id: %s" %(self.name, self.id))
 
-	  	conn.commit()
+		conn.commit()
 
-	  	cursor.close()
+		cursor.close()
 

@@ -13,13 +13,23 @@ class Season():
 
 			cursor = conn.cursor(buffered=True)
 
-			sportId ="SELECT * FROM Sport WHERE name='%s'" % (sportName,)
-
 			cursor.execute("SELECT Id FROM `Sport` WHERE `name`='%s'" % (sportName))
 
 			data = cursor.fetchall()
 
 			self.sportId = data[0][0]
+
+		try:
+
+			cursor.execute("SELECT Id FROM `Season` WHERE `name`='%s'" % (self.name))
+
+			data = cursor.fetchall()
+
+			self.seasonId = data[0][0]
+
+		except:
+
+			self.seasonId = None
 
 
 	def insert_season(self, conn):
@@ -30,20 +40,21 @@ class Season():
 		               "(name, sportId, year_start, year_end) "
 		               "VALUES (%(name)s, %(sportId)s, %(year_start)s, %(year_end)s )" )
 
-		  	season_data = {"name":self.name, "sportId":self.sportId, "year_start":self.year_start, "year_end":self.year_end}
+			season_data = {"name":self.name, "sportId":self.sportId, "year_start":self.year_start, "year_end":self.year_end}
 
-		  	cursor = conn.cursor(buffered=True)
-		  
-		  	cursor.execute(add_season,season_data)
+			cursor = conn.cursor(buffered=True)
 
-		  	print ("Adding season with Name: %s" %self.name)
+			cursor.execute(add_season,season_data)
 
-		  	conn.commit()
+			print ("Adding season with Name: %s" %self.name)
 
-		  	cursor.close()
+			conn.commit()
+
+			cursor.close()
 
 		else:
 
 			print ("Error, no sportId defined")
+
 
 

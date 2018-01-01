@@ -28,15 +28,15 @@ class Team():
                "(stubhubId, city, name, sportid) "
                "VALUES (%(stubhubId)s, %(city)s, %(name)s, %(sportId)s)" )
 
-		  	team_data = {"stubhubId":self.stubhubId,"name":self.name, "city": self.city, "sportId":self.sportId}
+			team_data = {"stubhubId":self.stubhubId,"name":self.name, "city": self.city, "sportId":self.sportId}
 
-		  	cursor = conn.cursor(buffered=True)
+			cursor = conn.cursor(buffered=True)
 
-		  	cursor.execute(add_team,team_data)
+			cursor.execute(add_team,team_data)
 
-		  	print ("Adding team %s %s" %(self.city, self.name))
+			print ("Adding team %s %s" %(self.city, self.name))
 
-		  	conn.commit()	
+			conn.commit()	
 		
 		else:
 

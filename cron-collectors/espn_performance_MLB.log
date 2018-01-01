@@ -1,0 +1,33 @@
+2017-12-26 12:32:52;INFO;Success, published message: MLB - San Francisco Giants
+2017-12-26 12:32:54;INFO;2017-12-26 17:32:54.540765: Error with collecting ESPN performance Oakland - Athletics
+2017-12-26 12:32:56;INFO;2017-12-26 17:32:56.567674: Error with collecting ESPN performance San Diego - Padres
+2017-12-26 12:32:57;INFO;Success, published message: MLB - Arizona Diamondbacks
+2017-12-26 12:33:08;INFO;Success, published message: MLB - San Francisco Giants
+2017-12-26 12:33:09;INFO;2017-12-26 17:33:09.298190: Error with collecting ESPN performance Oakland - Athletics
+2017-12-26 12:33:10;INFO;2017-12-26 17:33:10.687273: Error with collecting ESPN performance San Diego - Padres
+2017-12-26 12:33:12;INFO;Success, published message: MLB - Arizona Diamondbacks
+2017-12-26 12:33:12;INFO;2017-12-26 17:33:12.751237: Error with collecting ESPN performance Seattle - Mariners
+2017-12-26 12:33:16;INFO;2017-12-26 17:33:16.345692: Error with collecting ESPN performance Los Angeles - Dodgers
+2017-12-26 12:33:16;INFO;2017-12-26 17:33:16.961449: Error with collecting ESPN performance Los Angeles - Angels
+2017-12-26 12:34:00;INFO;Success, published message: MLB - San Francisco Giants
+2017-12-26 12:34:01;INFO;2017-12-26 17:34:01.605664: Error with collecting ESPN performance Oakland - Athletics
+2017-12-26 12:34:02;INFO;2017-12-26 17:34:02.188947: Error with collecting ESPN performance San Diego - Padres
+2017-12-26 12:34:06;INFO;Success, published message: MLB - Arizona Diamondbacks
+2017-12-26 12:34:08;INFO;2017-12-26 17:34:08.144004: Error with collecting ESPN performance Seattle - Mariners
+2017-12-26 12:34:10;INFO;2017-12-26 17:34:10.311268: Error with collecting ESPN performance Los Angeles - Dodgers
+2017-12-26 12:34:10;INFO;2017-12-26 17:34:10.916974: Error with collecting ESPN performance Los Angeles - Angels
+2017-12-26 12:34:11;INFO;Success, published message: MLB - Detroit Tigers
+2017-12-26 12:34:12;INFO;Success, published message: MLB - Boston Red Sox
+2017-12-26 12:34:17;INFO;Success, published message: MLB - Miami Marlins
+2017-12-26 12:34:17;INFO;Success, published message: MLB - Texas Rangers
+2017-12-26 12:34:19;INFO;Success, published message: MLB - Philadelphia Phillies
+2017-12-26 12:34:23;INFO;Success, published message: MLB - Houston Astros
+2017-12-26 12:35:39;INFO;Error with collecting ESPN performance Oakland - Athletics
+2017-12-26 12:35:41;INFO;Error with collecting ESPN performance San Diego - Padres
+2017-12-26 12:35:42;INFO;Error with collecting ESPN performance Seattle - Mariners
+2017-12-26 12:35:43;INFO;Error with collecting ESPN performance Los Angeles - Dodgers
+2017-12-26 12:35:44;INFO;Error with collecting ESPN performance Los Angeles - Angels
+2017-12-26 12:35:51;INFO;Error with collecting ESPN performance Cincinnati - Reds
+2017-12-26 12:35:54;INFO;Error with collecting ESPN performance Milwaukee - Brewers
+2017-12-26 12:35:56;INFO;Error with collecting ESPN performance Chicago - White Sox
+2017-12-26 12:35:58;INFO;Error with collecting ESPN performance Colorado - Rockies

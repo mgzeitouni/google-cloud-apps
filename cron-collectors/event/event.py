@@ -4,7 +4,7 @@ from team.team import Team
 
 class Event():
 	
-	def __init__(self, stubhubId, dateUTC,sportName, seasonName, teamCity, teamName,teamId=None, dateLocal=None, conn = None  ):
+	def __init__(self, stubhubId, dateUTC,sportName, seasonName, teamCity=None, teamName=None,teamId=None, dateLocal=None, conn = None  ):
 
 		self.stubhubId = stubhubId
 		self.dateUTC = dateUTC
@@ -25,20 +25,19 @@ class Event():
 
 			self.sportId = data[0][0]
 
-			
-			# Find if team exists,  
-			cursor.execute("SELECT stubhubId FROM `Team` WHERE `stubhubId`='%s'" % (self.teamId))
+			# Find if team exists
+			cursor.execute("SELECT * FROM `Team` WHERE `stubhubId`='%s'" % (self.teamId))
 
 			data = cursor.fetchall()
 
 			if len(data) >0:
 
+				self.team = Team(stubhubId = data[0][0], city = data[0][1], name = data[0][2], sportName=sportName)
 				self.teamId = data[0][0]
 				self.team_exists = True
 
 			else:
 				self.team_exists = False
-
 
 
 			cursor.execute("SELECT Id FROM `Season` WHERE `name`='%s'" % (seasonName))
@@ -56,7 +55,7 @@ class Event():
 
 				if not self.team_exists:
 
-					print 'No team found - creating %s %s' % (self.teamCity, self.teamName)
+					print ('No team found - creating %s %s' % (self.teamCity, self.teamName))
 					team = Team(stubhubId=self.teamId, city=self.teamCity, name=self.teamName, sportName=self.sportName, conn = conn)
 
 					team.insert_team(conn)
@@ -78,9 +77,9 @@ class Event():
            					"(stubhubId, dateUTC, teamId, sportId, seasonId, dateLocal) "
            					"VALUES (%(stubhubId)s, %(dateUTC)s, %(teamId)s, %(sportId)s, %(seasonId)s, %(dateLocal)s)" )
 
-  				event_data = {"stubhubId":self.stubhubId,"dateUTC":self.dateUTC, "teamId":self.teamId, "sportId":self.sportId,"seasonId":self.seasonId, "dateLocal":self.dateLocal }
+				event_data = {"stubhubId":self.stubhubId,"dateUTC":self.dateUTC, "teamId":self.teamId, "sportId":self.sportId,"seasonId":self.seasonId, "dateLocal":self.dateLocal }
 
-				
+
 
 				cursor.execute(add_event, event_data)
 
